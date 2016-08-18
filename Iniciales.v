@@ -22,8 +22,7 @@ module Iniciales
 
    //-------------------------------------------
    // logo region:
-   //   - display logo "PONG" at top center
-   //   - used as background
+   //   - display logo "ELC" at top center
    //   - scale to 64-by-128 font
    //-------------------------------------------
    assign logo_on = (pix_y[9:7]==2) && (3<=pix_x[9:6]) && (pix_x[9:6]<=6);
