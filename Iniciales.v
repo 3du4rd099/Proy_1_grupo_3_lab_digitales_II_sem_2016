@@ -2,7 +2,9 @@ module Iniciales
    (
     input wire clk, 
     input wire [9:0] pix_x, pix_y,
-    output wire [3:0] text_on,
+	 input wire Black, Blue, Green, Cyan, Red, Magenta, Yellow, White,
+	 
+    output wire text_on,
     output reg [2:0] text_rgb
    );
 
@@ -40,15 +42,49 @@ module Iniciales
    //-------------------------------------------
    always @*
    begin
-      text_rgb = 3'b110;  // background, yellow
-       char_addr = char_addr_l;
-       row_addr = row_addr_l;
-       bit_addr = bit_addr_l;
-       if (font_bit)
-           text_rgb = 3'b011;
+      text_rgb = 3'b010; // Green
+		char_addr = char_addr_l;
+		row_addr = row_addr_l;
+		bit_addr = bit_addr_l;		
+      if (Black)
+			begin
+				text_rgb = 3'b000;
+			end
+		else if (Blue)
+			begin
+				text_rgb = 3'b001;
+			end
+		else if (Green)
+			begin
+				text_rgb = 3'b010;
+			end
+		else if (Cyan)
+			begin
+				text_rgb = 3'b011;
+			end
+		else if (Red)
+			begin
+				text_rgb = 3'b100;
+			end
+		else if (Magenta)
+			begin
+				text_rgb = 3'b101;
+			end
+		else if (Yellow)
+			begin
+				text_rgb = 3'b110;
+			end
+		else if (White)
+			begin
+				text_rgb = 3'b111;
+			end
+		else
+			begin
+				text_rgb = 3'b010;
+			end
    end
 
-   assign text_on = {logo_on};
+   assign text_on = logo_on;
    //-------------------------------------------
    // font rom interface
    //-------------------------------------------
