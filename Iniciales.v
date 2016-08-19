@@ -3,7 +3,6 @@ module Iniciales
     input wire clk, 
     input wire [9:0] pix_x, pix_y,
 	 input wire Black, Blue, Green, Cyan, Red, Magenta, Yellow, White,
-	 
     output wire text_on,
     output reg [2:0] text_rgb
    );
@@ -42,41 +41,41 @@ module Iniciales
    //-------------------------------------------
    always @*
    begin
-      text_rgb = 3'b010; // Green
+      text_rgb = 3'b000; // background, Black
 		if (logo_on)
 			begin
 				char_addr = char_addr_l;
 				row_addr = row_addr_l;
 				bit_addr = bit_addr_l;		
-				if (Black)
+				if (Black && font_bit)
 					begin
 						text_rgb = 3'b000;
 					end
-				else if (Blue)
+				else if (Blue && font_bit)
 					begin
 						text_rgb = 3'b001;
 					end
-				else if (Green)
+				else if (Green && font_bit)
 					begin
 						text_rgb = 3'b010;
 					end
-				else if (Cyan)
+				else if (Cyan && font_bit)
 					begin
 						text_rgb = 3'b011;
 					end
-				else if (Red)
+				else if (Red && font_bit)
 					begin
 						text_rgb = 3'b100;
 					end
-				else if (Magenta)
+				else if (Magenta && font_bit)
 					begin
 						text_rgb = 3'b101;
 					end
-				else if (Yellow)
+				else if (Yellow && font_bit)
 					begin
 						text_rgb = 3'b110;
 					end
-				else if (White)
+				else if (White && font_bit)
 					begin
 						text_rgb = 3'b111;
 					end
@@ -87,6 +86,9 @@ module Iniciales
 			end
 		else
 			begin
+				char_addr = 7'b0000000;
+				row_addr = 4'b0000;
+				bit_addr = 3'b000;	
 				text_rgb = 3'b000;
 			end
    end
