@@ -43,44 +43,51 @@ module Iniciales
    always @*
    begin
       text_rgb = 3'b010; // Green
-		char_addr = char_addr_l;
-		row_addr = row_addr_l;
-		bit_addr = bit_addr_l;		
-      if (Black)
+		if (logo_on)
 			begin
-				text_rgb = 3'b000;
-			end
-		else if (Blue)
-			begin
-				text_rgb = 3'b001;
-			end
-		else if (Green)
-			begin
-				text_rgb = 3'b010;
-			end
-		else if (Cyan)
-			begin
-				text_rgb = 3'b011;
-			end
-		else if (Red)
-			begin
-				text_rgb = 3'b100;
-			end
-		else if (Magenta)
-			begin
-				text_rgb = 3'b101;
-			end
-		else if (Yellow)
-			begin
-				text_rgb = 3'b110;
-			end
-		else if (White)
-			begin
-				text_rgb = 3'b111;
+				char_addr = char_addr_l;
+				row_addr = row_addr_l;
+				bit_addr = bit_addr_l;		
+				if (Black)
+					begin
+						text_rgb = 3'b000;
+					end
+				else if (Blue)
+					begin
+						text_rgb = 3'b001;
+					end
+				else if (Green)
+					begin
+						text_rgb = 3'b010;
+					end
+				else if (Cyan)
+					begin
+						text_rgb = 3'b011;
+					end
+				else if (Red)
+					begin
+						text_rgb = 3'b100;
+					end
+				else if (Magenta)
+					begin
+						text_rgb = 3'b101;
+					end
+				else if (Yellow)
+					begin
+						text_rgb = 3'b110;
+					end
+				else if (White)
+					begin
+						text_rgb = 3'b111;
+					end
+				else
+					begin
+						text_rgb = 3'b010;
+					end
 			end
 		else
 			begin
-				text_rgb = 3'b010;
+				text_rgb = 3'b000;
 			end
    end
 
