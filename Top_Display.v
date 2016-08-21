@@ -21,15 +21,16 @@
 module Top_Display(
     input wire clk,reset, //señal de reloj de la FPGA y un reset asincrónico para el sistema
 	 input wire Black, Blue, Green, Cyan, Red, Magenta, Yellow, White, //colores a escoger por el usuasrio
-	 output wire text_on,
+	 output wire text_on, video_on,
+	 output wire hsync, vsync,
     output wire [2:0] text_rgb
 	 );
 	 
-	 wire hsync, vsync;
+	
 	 wire [9:0] pixel_x, pixel_y;
 	 wire p_tick;
 	 
-	vga_sync sincronizador_vga (.clk(clk), .reset(reset), .hsync(), .vsync(), .video_on(), .p_tick(p_tick),
+	vga_sync sincronizador_vga (.clk(clk), .reset(reset), .hsync(hsync), .vsync(vsync), .video_on(video_on), .p_tick(p_tick),
 		.pixel_x(pixel_x), .pixel_y(pixel_y));
 	Iniciales generador_pixel (.clk(p_tick), .pix_x(pixel_x), .pix_y(pixel_y), .Black(Black), .Blue(Blue), .Green(Green),
 	.Cyan(Cyan), .Red(Red), .Magenta(Magenta), .Yellow(Yellow), .White(White), .text_on(text_on), .text_rgb(text_rgb));
