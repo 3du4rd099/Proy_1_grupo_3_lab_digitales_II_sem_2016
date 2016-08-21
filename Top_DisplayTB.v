@@ -4,9 +4,9 @@
 // Company: 
 // Engineer:
 //
-// Create Date:   13:50:48 08/19/2016
+// Create Date:   12:31:52 08/22/2016
 // Design Name:   Top_Display
-// Module Name:   C:/Users/Carlos Gomez/Xilinx/SysGen/14.7/VGA_Controller/Top_DisplayTB.v
+// Module Name:   C:/Users/Carlos Gomez/Xilinx/SysGen/14.7/VGA_Controller/Top_DisplayTB2.v
 // Project Name:  VGA_Controller
 // Target Device:  
 // Tool versions:  
@@ -22,7 +22,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 
-module Top_DisplayTB;
+module Top_DisplayTB2;
 
 	// Inputs
 	reg clk;
@@ -35,16 +35,15 @@ module Top_DisplayTB;
 	reg Magenta;
 	reg Yellow;
 	reg White;
-	
-	reg [19:0] tiempo;
-	reg [2:0] color;
-
+	reg color;
+	reg tiempo;
 
 	// Outputs
 	wire text_on;
-	wire [2:0] text_rgb;
+	wire video_on;
 	wire hsync;
 	wire vsync;
+	wire [2:0] text_rgb;
 
 	// Instantiate the Unit Under Test (UUT)
 	Top_Display uut (
@@ -59,6 +58,9 @@ module Top_DisplayTB;
 		.Yellow(Yellow), 
 		.White(White), 
 		.text_on(text_on), 
+		.video_on(video_on), 
+		.hsync(hsync), 
+		.vsync(vsync), 
 		.text_rgb(text_rgb)
 	);
 
@@ -74,15 +76,16 @@ module Top_DisplayTB;
 		Magenta = 0;
 		Yellow = 0;
 		White = 0;
-		tiempo = 0;
 		color = 0;
+		tiempo = 0;
 
 		// Wait 100 ns for global reset to finish
-		#100reset=0;
+		#100 reset=0;
         
-		// Add stimulus her
+		// Add stimulus here
+
 	end
-	always begin
+      always begin
 	#10 clk =! clk;
 	end
 	always @(posedge clk) 
@@ -180,6 +183,11 @@ module Top_DisplayTB;
                   Black=1;
                end
    endcase
+	
+	
+      
+endmodule
+
 	
 	
       
