@@ -1,0 +1,122 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{graphicx}
+\usepackage[left=3cm,right=3cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[R]{\textbf{\thepage/\pageref{LastPage}}}
+\renewcommand{\headrulewidth}{0pt}
+
+\begin{document}
+\begin{titlepage}
+\begin{center}
+\vspace*{1.5cm}
+\textbf{Escuela de Ingenieria en Electronica}\\[0.8cm]
+\textbf{Laboratorio de Diseñó de Sistemas Digitales}\\[1cm]
+\textbf{Bitacora}\\[2cm]
+\textbf{Proyecto:}\\[0.4cm]
+Desarrollo de un Controlador VGA \\[1.7cm]
+\textbf{Profesor:}\\[0.4cm]
+Alfonso Chacon Rodriguez \\[1.7cm]
+\textbf{Estudiantes:}\\[0.4cm]
+Carlos Gomez Garcia\\[0.8cm]
+Eduardo Ortiz Jimenez \\[0.8cm]
+Luis Retana\\[1.7cm]
+\textbf{Periodo}\\[0.8cm]
+II Semestre, 2016\\
+\end{center}
+\end{titlepage}
+
+\begin{flushright}
+\begin{large}
+\textbf{Fecha: 5 de Agosto 2016}\\
+\end{large}
+\end{flushright}
+
+\section*{\textit{Introduccion al proyecto}}
+El estandar de video VGA (video graphics array) fue introducido a finales de los anos 80 y ofrece
+una calidad media de resolucion de 640 por 480 pixeles, con al menos ocho colores desplegables,
+codificados en tres bits. La mayoria de las tarjetas de desarrollo de FPGAs posee una interfaz VGA,
+pues resulta practica para el despliegue de datos.
+Los estudiantes deberan implementar la unidad de control de dicho sistema, siguiendo el mismo
+algoritmo desarrollado en el curso anterior, pero aplicando los conceptos de diseno RTL y Top-Down.
+Los estudiantes deberan emular todas las salidas y entradas del sistema, pero no tendran que conectar el mismo a una red.
+
+\section*{\textit{Objetivo General}}
+Desarrollar habilidades basicas en el diseno de sistemas digitales avanzados aprovechando las 
+capacidades de diseno y verificacion de las herramientas EDA para disenar sobre logica programable(FPGAs) por medio de HDLs.
+
+\section*{\textit{Objetivos Tecnicos}}
+\begin{itemize}
+\item Proponer un diseno a nivel de bloques de una unidad de control que permita el despliegue de caracteres y simbolos en una pantalla VGA compatible de $640$ por $480$ pixeles, con al menos
+ocho colores desplegables. El diseno debera incorporar las buenas practicas del diseno Top-Down (arriba-abajo).
+\item Desarrollar el codigo Verilog que implementa el diseno del primer objetivo, y verificarlo a nivel de simulacion, con resultados de simulacion post-sintesis, a una velocidad de al menos $50$MHz.
+\item Comprobar el funcionamiento correcto de la unidad sobre una FPGA Nexys.
+\end{itemize}
+
+\section*{\textit{Objetivos de Aprendizaje}}
+\begin{itemize}
+\item En el transcurso de este proyecto se pondran a prueba los valores de honestidad por el respeto a la informacion, la disciplina en el trabajo, la objetividad en el trato a los companeros, el liderazgo y el orden en lograr cumplir con las tareas.
+\item Para la realizacion de este proyecto el estudiante debera aprender a especificar correctamente sistemas digitales por medio de HDLs y el uso de herramientas EDA.
+\item Para la realizacion de este proyecto el estudiante debe saber utilizar la metodologia de diseno Top-Down aplicada a sistemas digitales, y aplicar los procedimientos adecuados de medicion de senales electricas digitales. 
+\end{itemize}
+
+\newpage
+\begin{flushright}
+\begin{large}
+\textbf{Fecha: 8 de Agosto}\\
+\end{large}
+\end{flushright}
+
+Se realizo un estudio del proyecto basandonos en el libro Pong P. Chu.
+Tambien se realizo un decodificador para la seleccion de los colores, ocho diferentes entradas para cada color respectivo, y tres salidas que corresponden al Blue, Red y Green que recibe el puerto VGA. Ademas se decide utilizar el digrama de bloques de segundo nivel que muestra el Pong P. Chu para el proyecto.
+La senal Video On en la Figura $1$. nos indica cuando la pantalla puede mostrar imagenes. La senal hsinc y vsinc indican el recorrido que hace el rayo de electrones de forma vertical y horizontal, estas dos senales deben ir sincronizadas entre si. Las senales pixel x y pixel y indican la posicion del pixel en el respectivo eje de coordenadas sobre la pantalla. Y por ultimo la senal rgp debe mostrar el color de pixel deseado. Las entrada clk corresponde al clock de la FPGA y la external data, nos indica el color deseado para cada pixel.
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[height=5cm, width=12cm]{VGAC_SegundoNivel.png}
+  \caption[1erNivel]{Diagrama de segundo nivel del controlador VGA}
+  \label{fig:VGAC_2doNivel}
+\end{figure}
+
+\begin{flushright}
+\begin{large}
+\textbf{Fecha: 9 de Agosto 2016}\\
+\end{large}
+\end{flushright}
+
+Se profundiza en el tercer nivel del diagrama de bloques del controlador VGA. Se decide que el circuito generador de pixeles será de tipo "tile maped scheme" por lo que se va a necesitar una memoria para guardar cada caracter y que pueda ser leido si se llega a la posicion de la pantalla deseada.
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[height=6cm, width=12cm]{VGAC_TercerNivel.png}
+  \caption[1erNivel]{Diagrama de Tercer nivel del controlador VGA}
+  \label{fig:VGAC_3erNivel}
+\end{figure}
+
+\begin{flushright}
+\begin{large}
+\textbf{Fecha: 11 de Agosto 2016}\\
+\end{large}
+\end{flushright}
+
+Se desarrolla un cuarto nivel en el controlador de VGA. Y se divide el proyecto en 3 tareas, sincronizador el cual corresponde a Luis Retana, el decodificador de texto y la memoria ROM a Eduardo Ortiz, y por último la verificación de los módulos a nivel de sintesis y post-sintesis a Carlos Gómez.
+
+\begin{flushright}
+\begin{large}
+\textbf{Fecha: 16 de Agosto 2016}\\
+\end{large}
+\end{flushright}
+
+A partir de las salidas y entradas establecidas en el tercer nivel RTL, cada integrante continúa avanzando individualmente en el proyecto.
+
+\begin{flushright}
+\begin{large}
+\textbf{Fecha: 19 de Agosto 2016}\\
+\end{large}
+\end{flushright}
+
+Se realiza la simulación de los diferentes módulos individuales para comprobar su funcionamiento. A partir de esto los juntamos en un único módulo para sintetizar y realizar una simulación post-sintesis del proyecto.
+
+\end {document}
