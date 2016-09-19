@@ -54,7 +54,7 @@ module H_V_Sync_VGA_2(
 	always @ (posedge clk, posedge reset)
 	if (reset)
 		begin
-			counter <= 1'b0;
+			counter <= 1'b000;
 			ver_cont_reg <= 0;
 			hor_cont_reg <= 0;
 			ver_sinc_reg <= 1'b0;
@@ -69,10 +69,6 @@ module H_V_Sync_VGA_2(
 			hor_sinc_reg <= hor_sinc_next;
 		end
 //generador de 25MHZ
-initial begin //asignación de valores iniciales
-    counter = 0;
-    clk_out = 0;
-end
 always @(posedge clk_in) begin //en cada cambio posiivo genera un coportamiento de flop flop
     if (counter == 0) begin
         counter <= 4; //contador que alcanza 4 para asignar una salida a aproximadamente 25MHz
