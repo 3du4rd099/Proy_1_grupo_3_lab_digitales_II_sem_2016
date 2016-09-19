@@ -81,7 +81,7 @@ always @(posedge clk_in) begin //en cada cambio posiivo genera un coportamiento 
         counter <= counter -1; //si las condiciones no se contemplan el contador comienza a reducirse hasta que alcanze 4
     end
 end
-assign pixel_tick = clk_out;
+
  
 //Pulsos de estado
 //asignando el contador horizontal
@@ -125,6 +125,6 @@ assign h_sync = hor_sinc_reg;
 assign v_sync = ver_sinc_reg;
 assign pixel_x = hor_cont_reg;
 assign pixel_y = ver_cont_reg;
-assign pixel_tick = pixel_tic_mod;
+assign pixel_tick = clk_out;
 
 endmodule
