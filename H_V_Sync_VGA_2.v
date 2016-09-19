@@ -75,10 +75,10 @@ initial begin //asignación de valores iniciales
 end
 always @(posedge clk_in) begin //en cada cambio posiivo genera un coportamiento de flop flop
     if (counter == 0) begin
-        counter <= 4; //contador que alcanza 4194304 para asignar una salida a aproximadamente 10Hz
-        clk_out <= ~clk_out; //cuando el contador alcanza 4194304 el relog asigna al clk_out una salida en alto
+        counter <= 4; //contador que alcanza 4 para asignar una salida a aproximadamente 25MHz
+        clk_out <= ~clk_out; //cuando el contador alcanza 0 el relog asigna al clk_out una salida en alto
     end else begin
-        counter <= counter -1; //si las condiciones no se contemplan el contador comienza a reducirse hasta que alcanze 4194304
+        counter <= counter -1; //si las condiciones no se contemplan el contador comienza a reducirse hasta que alcanze 4
     end
 end
 assign pixel_tick = clk_out;
