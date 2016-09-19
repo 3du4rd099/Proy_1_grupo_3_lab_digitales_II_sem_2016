@@ -19,12 +19,12 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module H_V_Sync_VGA_2(
-	input wire clk,reset, //se馻l de reloj de la FPGA y un reset asincr髇ico para el sistema
-	output wire h_sync, v_sync, video_on, pixel_tick,	 //se馻les de monitoreo, sincronizaci髇 y control
-	output wire [9:0] pixel_x, pixel_y //se馻les que permiten ubicar la posici髇 del pixel_x y pixel_y
+	input wire clk,reset, //se帽al de reloj de la FPGA y un reset asincr贸nico para el sistema
+	output wire h_sync, v_sync, video_on, pixel_tick,	 //se帽ales de monitoreo, sincronizaci贸n y control
+	output wire [9:0] pixel_x, pixel_y //se帽ales que permiten ubicar la posici贸n del pixel_x y pixel_y
 	);
 
-//declarando par醡etros
+//declarando par谩metros
 	//Modo VGA 640x480 se considera el uso de los parametros debido a los tiempos de retraso de las compuertas y del monitor mismo
 	localparam Hor_Disp = 640; //Area de dibujo horizontal 
 	localparam Hor_Bor_Izq = 48; //Area horizontal de borde negro izquierdo
@@ -36,7 +36,7 @@ module H_V_Sync_VGA_2(
 	localparam Ver_Ret = 2; //Retraso vertical
 	
 	// Circuito Divisor de frecuencia
-	reg counter; //Registro Para Contar
+	reg [2:0]counter; //Registro Para Contar
 	wire clk_out; //Salida que produce el contador
 	
 	//Sincronizadores
@@ -69,8 +69,19 @@ module H_V_Sync_VGA_2(
 			hor_sinc_reg <= hor_sinc_next;
 		end
 //generador de 25MHZ
-assign clk_out = ~counter;
-assign pixel_tic_mod = counter;
+initial begin //asignaci贸n de valores iniciales
+    counter = 0;
+    clk_out = 0;
+end
+always @(posedge clk_in) begin //en cada cambio posiivo genera un coportamiento de flop flop
+    if (counter == 0) begin
+        counter <= 4; //contador que alcanza 4194304 para asignar una salida a aproximadamente 10Hz
+        clk_out <= ~clk_out; //cuando el contador alcanza 4194304 el relog asigna al clk_out una salida en alto
+    end else begin
+        counter <= counter -1; //si las condiciones no se contemplan el contador comienza a reducirse hasta que alcanze 4194304
+    end
+end
+assign pixel_tick = clk_out;
  
 //Pulsos de estado
 //asignando el contador horizontal
